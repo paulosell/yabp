@@ -10,14 +10,18 @@ permissions:
 jobs:
   check_version:
     runs-on: ubuntu-latest
+    outputs:
+      are_versions_different: ${{ steps.compare_versions.outputs.are_versions_different }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-      
-      - name: Get current tag
+
+      - name: Get current repository tag
         id: current_tag
         run: |
-          echo "TAG=$(git describe --abbrev=0 --tags)" >> $GITHUB_OUTPUT
+          git fetch --prune --unshallow 
+          echo "TAG=$(git describe --abbrev=0 --tags --always)" >> $GITHUB_OUTPUT
       
       - name: Extract project version
         id: current_version
@@ -28,12 +32,14 @@ jobs:
         id: compare_versions
         run: |
           if [ "${{ steps.current_version.outputs.version }}" == "${{ steps.current_tag.outputs.tag }}" ]; then
-          echo "Versions are the same. No need to release."
-          exit 78  # Skip the subsequent jobs in the workflow
+            echo "ARE_VERSIONS_DIFFERENT=false" >> $GITHUB_OUTPUT 
+          else
+            echo "ARE_VERSIONS_DIFFERENT=true" >> $GITHUB_OUTPUT 
           fi
           
   release:
     needs: check_version
+    if: needs.check_version.outputs.are_versions_different == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
