@@ -1,0 +1,21 @@
+name: Build
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+
+      - name: install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install cmake
+          pip install conan
+          conan profile detect --force
+          
+      - name: build 
+        shell: bash
+        run: |
+          make build

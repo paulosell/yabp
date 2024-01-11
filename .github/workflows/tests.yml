@@ -1,0 +1,21 @@
+name: Tests
+on: [push]
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+
+      - name: install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install cmake
+          pip install conan
+          conan profile detect --force
+          
+      - name: tests 
+        shell: bash
+        run: |
+          make run_tests         
