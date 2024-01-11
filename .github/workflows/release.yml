@@ -17,7 +17,7 @@ jobs:
       - name: Get current tag
         id: current_tag
         run: |
-          echo "CURRENT_TAG=$(git describe --abbrev=0 --tags)" >> $GITHUB_OUTPUT
+          echo "TAG=$(git describe --abbrev=0 --tags)" >> $GITHUB_OUTPUT
       
       - name: Extract project version
         id: current_version
@@ -27,7 +27,7 @@ jobs:
       - name: Compare versions
         id: compare_versions
         run: |
-          if [ "${{ steps.current_version.outputs.version }}" == "${{ steps.current_tag.outputs.current_tag }}" ]; then
+          if [ "${{ steps.current_version.outputs.version }}" == "${{ steps.current_tag.outputs.tag }}" ]; then
           echo "Versions are the same. No need to release."
           exit 78  # Skip the subsequent jobs in the workflow
           fi
