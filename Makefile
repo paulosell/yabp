@@ -22,10 +22,16 @@ tests: dependencies
 	cmake --build . 
 
 run_example: example
-	@clear && cd $(BUILD_DIR)/example && ./example
+	cd $(BUILD_DIR)/example && ./example
 
 run_tests: tests
-	@clear && cd $(BUILD_DIR)/tests && ./base64url_test
+	cd $(BUILD_DIR)/tests && ./base64url_test
+
+install: dependencies
+	@cd "$(BUILD_DIR)" && \
+	cmake .. -DCMAKE_TOOLCHAIN_FILE=$(BUILD_DIR)/conan_toolchain.cmake -DCMAKE_BUILD_TYPE=Release -DBUILD_EXAMPLE=0 -DBUILD_TESTING=0 -DCMAKE_INSTALL_PREFIX=$(INSTALL_PREFIX) && \
+	cmake --build . && \
+	cmake --install . --strip --config Release
 
 clean:
 	@if [ -d $(BUILD_DIR) ]; then rm -r $(BUILD_DIR); fi
