@@ -1,0 +1,52 @@
+name: Release
+on: [push]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+
+      - name: install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get -y install cmake
+          pip install conan
+          conan profile detect --force
+          
+      - name: build and install 
+        shell: bash
+        run: |
+          make install INSTALL_PREFIX=$(pwd)/install
+
+      - name: extract project version
+        id: version
+        run: |
+          echo "VERSION=$(grep -oP 'project\(.*VERSION \K[0-9]+\.[0-9]+\.[0-9]+' CMakeLists.txt)" >> $GITHUB_OUTPUT
+        
+      - name: name artifact
+        id: artifact
+        run: |
+          echo "artifact=yabp-${{ steps.version.outputs.version }}.tar.gz" >> $GITHUB_ENV
+      
+      - name: pack files
+        id: pack
+        run: |
+          tar zcvf ${{ env.artifact }} -C$(pwd)/ install/
+      
+      - name: upload artifact
+        uses: actions/upload-artifact@v1
+        with:
+          path: ./${{ env.artifact }}
+          name: ${{ env.artifact }}
+
+      - name: publish artifact
+        uses: softprops/action-gh-release@v1
+        with:
+         tag_name: ${{ steps.version.outputs.version }}
+         files: |
+          ${{ env.artifact }}
