@@ -17,7 +17,7 @@ jobs:
       - name: Get current tag
         id: current_tag
         run: |
-          echo "CURRENT_TAG=$(git describe --abbrev=0 --tags)" >> GITHUB_OUTPUT
+          echo "CURRENT_TAG=$(git describe --abbrev=0 --tags)" >> $GITHUB_OUTPUT
       
       - name: Extract project version
         id: current_version
