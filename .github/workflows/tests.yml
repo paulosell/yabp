@@ -5,17 +5,17 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: install dependencies
+      - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get -y install cmake
           pip install conan
           conan profile detect --force
           
-      - name: tests 
+      - name: Tests 
         shell: bash
         run: |
           make run_tests         

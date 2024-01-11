@@ -11,20 +11,20 @@ jobs:
   check_version:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v3
       
-      - name: get current tag
+      - name: Get current tag
         id: current_tag
         run: |
           echo "CURRENT_TAG=$(git describe --abbrev=0 --tags)" >> GITHUB_OUTPUT
       
-      - name: extract project version
+      - name: Extract project version
         id: current_version
         run: |
           echo "VERSION=$(grep -oP 'project\(.*VERSION \K[0-9]+\.[0-9]+\.[0-9]+' CMakeLists.txt)" >> $GITHUB_OUTPUT
       
-      - name: compare versions
+      - name: Compare versions
         id: compare_versions
         run: |
           if [ "${{ steps.current_version.outputs.version }}" == "${{ steps.current_tag.outputs.current_tag }}" ]; then
@@ -36,43 +36,43 @@ jobs:
     needs: check_version
     runs-on: ubuntu-latest
     steps:
-      - name: checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: install dependencies
+      - name: Install dependencies
         run: |
           sudo apt-get update
           sudo apt-get -y install cmake
           pip install conan
           conan profile detect --force
           
-      - name: build and install 
+      - name: Build and install 
         shell: bash
         run: |
           make install INSTALL_PREFIX=$(pwd)/install
 
-      - name: extract project version
+      - name: Extract project version
         id: version
         run: |
           echo "VERSION=$(grep -oP 'project\(.*VERSION \K[0-9]+\.[0-9]+\.[0-9]+' CMakeLists.txt)" >> $GITHUB_OUTPUT
         
-      - name: name artifact
+      - name: Name artifact
         id: artifact
         run: |
           echo "artifact=yabp-${{ steps.version.outputs.version }}.tar.gz" >> $GITHUB_ENV
       
-      - name: pack files
+      - name: Pack files
         id: pack
         run: |
           tar zcvf ${{ env.artifact }} -C$(pwd)/ install/
       
-      - name: upload artifact
+      - name: Upload artifact
         uses: actions/upload-artifact@v1
         with:
           path: ./${{ env.artifact }}
           name: ${{ env.artifact }}
 
-      - name: publish artifact
+      - name: Publish artifact
         uses: softprops/action-gh-release@v1
         with:
          tag_name: ${{ steps.version.outputs.version }}
