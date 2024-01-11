@@ -1,7 +1,7 @@
 [![License: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![build](https://github.com/paulosell/yabp/actions/workflows/build.yaml/badge.svg)](https://github.com/paulosell/yabp/actions/workflows/build.yaml)
-[![tests](https://github.com/paulosell/yabp/actions/workflows/tests.yaml/badge.svg)](https://github.com/paulosell/yabp/actions/workflows/tests.yaml)
-[![release](https://github.com/paulosell/yabp/actions/workflows/release.yaml/badge.svg)](https://github.com/paulosell/yabp/actions/workflows/release.yaml)
+[![build](https://github.com/paulosell/yabp/actions/workflows/build.yml/badge.svg)](https://github.com/paulosell/yabp/actions/workflows/build.yml)
+[![tests](https://github.com/paulosell/yabp/actions/workflows/tests.yml/badge.svg)](https://github.com/paulosell/yabp/actions/workflows/tests.yml)
+[![release](https://github.com/paulosell/yabp/actions/workflows/release.yml/badge.svg)](https://github.com/paulosell/yabp/actions/workflows/release.yml)
 
 # Yet Another Base64URL Parser (YABP)
 
