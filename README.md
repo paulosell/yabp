@@ -1,3 +1,8 @@
+[![License: GPL v3](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![build](https://github.com/paulosell/yabp/actions/workflows/build.yaml/badge.svg)](https://github.com/paulosell/yabp/actions/workflows/build.yaml)
+[![tests](https://github.com/paulosell/yabp/actions/workflows/tests.yaml/badge.svg)](https://github.com/paulosell/yabp/actions/workflows/tests.yaml)
+[![release](https://github.com/paulosell/yabp/actions/workflows/release.yaml/badge.svg)](https://github.com/paulosell/yabp/actions/workflows/release.yaml)
+
 # Yet Another Base64URL Parser (YABP)
 
 This repository offers a straightforward Base64 URL parser inspired by [RFC 4648](https://www.rfc-editor.org/rfc/rfc4648.html). I developed this project with the aim of making open-source contributions to initiatives associated with the [Dispositivo Autorizador Fiscal (DAF)](https://www.sef.sc.gov.br/servicos/servico/159). Consequently, the project is welcoming improvements and contributions from the community.
@@ -33,6 +38,11 @@ make run_example
 - **Build and run tests**:
 ```shell
 make run_tests
+```
+
+- **Build and install library**:
+```shell
+make install INSTALL_PREFIX=<install_path>
 ```
 
 ## Contributions
