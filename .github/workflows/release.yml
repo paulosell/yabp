@@ -1,11 +1,39 @@
 name: Release
-on: [push]
+on:
+  push:
+    branches:
+      - master
 
 permissions:
   contents: write
 
 jobs:
+  check_version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+      
+      - name: get current tag
+        id: current_tag
+        run: |
+          echo "CURRENT_TAG=$(git describe --abbrev=0 --tags)" >> GITHUB_OUTPUT
+      
+      - name: extract project version
+        id: current_version
+        run: |
+          echo "VERSION=$(grep -oP 'project\(.*VERSION \K[0-9]+\.[0-9]+\.[0-9]+' CMakeLists.txt)" >> $GITHUB_OUTPUT
+      
+      - name: compare versions
+        id: compare_versions
+        run: |
+          if [ "${{ steps.current_version.outputs.version }}" == "${{ steps.current_tag.outputs.current_tag }}" ]; then
+          echo "Versions are the same. No need to release."
+          exit 78  # Skip the subsequent jobs in the workflow
+          fi
+          
   release:
+    needs: check_version
     runs-on: ubuntu-latest
     steps:
       - name: checkout repository
