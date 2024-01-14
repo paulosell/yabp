@@ -6,7 +6,7 @@
 
 namespace base64url {
 
-#if BUILD_TEST
+#ifdef BUILD_TEST
 bool invalid_char(char c);
 size_t __encoded_size(size_t decoded_length);
 size_t __decoded_size(size_t encoded_length);
