@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 3.15.0)
 project(base64url VERSION 1.0.1)
 
-add_compile_options(-Werror -Wall)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-if(BUILD_TESTING)
-add_definitions(-DBUILD_TEST)
-endif()
+add_compile_options(-Werror -Wall)
 
 include_directories(include)
 add_subdirectory(src)
@@ -19,6 +18,4 @@ if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
 
