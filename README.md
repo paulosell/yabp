@@ -3,7 +3,7 @@
 [![tests](https://github.com/paulosell/yabp/actions/workflows/tests.yml/badge.svg)](https://github.com/paulosell/yabp/actions/workflows/tests.yml)
 [![release](https://github.com/paulosell/yabp/actions/workflows/release.yml/badge.svg)](https://github.com/paulosell/yabp/actions/workflows/release.yml)
 
-# Yet Another Base64URL Parser (YABP)
+# Yet Another Base64Url Parser (YABP)
 
 This repository offers a straightforward Base64 URL parser inspired by [RFC 4648](https://www.rfc-editor.org/rfc/rfc4648.html). I developed this project with the aim of making open-source contributions to initiatives associated with the [Dispositivo Autorizador Fiscal (DAF)](https://www.sef.sc.gov.br/servicos/servico/159). Consequently, the project is welcoming improvements and contributions from the community.
 
