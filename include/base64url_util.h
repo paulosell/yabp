@@ -8,6 +8,8 @@ namespace Base64Url {
 
 class Base64UrlUtil{
 public:
+  Base64UrlUtil(){};
+  ~Base64UrlUtil(){};
 
   /**
   * @brief Checks whether a character is invalid for Base64Url encoding.
